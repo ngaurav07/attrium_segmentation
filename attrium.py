@@ -119,7 +119,7 @@ labels = []
 # labels = np.array(labels)
 
 # model.loss_fn(torch.from_numpy(preds), torch.from_numpy(labels))
-def extract(subject, st):
+def extract(subject, st, placeholder_image):
     subject_mri = nib.load(subject).get_fdata()
     subject_mri = subject_mri[32:-32, 32:-32]
     standardized_scan = standardize(normalize(subject_mri))
@@ -140,5 +140,6 @@ def extract(subject, st):
         plt.imshow(standardized_scan[:, :, i], cmap='bone')
         mask = np.ma.masked_where(preds[i] == 0, preds[i])
         plt.imshow(mask, alpha=0.5)
-        st.pyplot(fig)
-
+        # plt.savefig('x',dpi=400)
+        placeholder_image.pyplot(fig)
+        # st.pyplot(fig)
